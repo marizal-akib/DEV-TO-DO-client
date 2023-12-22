@@ -11,14 +11,10 @@ const DashNav = () => {
       user
     } = useAuth()
     const Menus = [
-      {to:"/", title: "Home", src: "Chart_fill" },
-      {to:"add", title: "Add Project", src: "https://i.ibb.co/Hxvg23J/Screenshot-2023-12-22-095725-removebg-preview.png" },
-      {to:"Accounts", title: "Accounts", src: "User", gap: true },
-      {to:"Schedule ", title: "Schedule ", src: "Calendar" },
-      {to:"Search", title: "Search", src: "Search" },
-      {to:"Analytics", title: "Analytics", src: "Chart" },
-      {to:"Files ", title: "Files ", src: "Folder", gap: true },
-      {to:"Setting", title: "Setting", src: "Setting" },
+      {to:"tasks", title: "All task", src: "https://i.ibb.co/k59q5sJ/Screenshot-2023-12-22-105223-removebg-preview.png" },
+      {to:"projects", title: "Project", src: "https://i.ibb.co/Hxvg23J/Screenshot-2023-12-22-095725-removebg-preview.png", },
+    //   {to:"reminders", title: "Project", src: "https://i.ibb.co/Hxvg23J/Screenshot-2023-12-22-095725-removebg-preview.png", gap: true },
+    //   {to:"Setting", title: "Setting", src: "Setting", gap: true },
     ];
   
     return (

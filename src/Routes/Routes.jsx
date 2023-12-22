@@ -1,12 +1,12 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../components/Layouts/Main";
 import Home from "../components/Pages/Home/Home";
-import Projects from "../components/Pages/Projects/Projects";
 import Login from "../components/Auth/Login";
 import SignUp from "../components/Auth/SignUp";
-
-import AddProjects from "../components/Dash/AddProjects";
 import Dashboard from "../components/Layouts/Dashboard";
+import AddProjects from "../components/Dash/AddProjects/AddProjects";
+import AllTask from "../components/Dash/AllTask/AllTask";
+import Projects from "../components/Dash/Projects/Projects";
 
 export const router = createBrowserRouter([
   {
@@ -14,10 +14,7 @@ export const router = createBrowserRouter([
     element: <Main></Main>,
     children: [
       { path: "/", element: <Home></Home> },
-      {
-        path: "/projects",
-        element: <Projects></Projects>,
-      },
+      
       {
         path: "/login",
         element: <Login></Login>,
@@ -30,11 +27,21 @@ export const router = createBrowserRouter([
   },
   {
     path: "dashboard",
-    element:<Dashboard></Dashboard>,
+    element: <Dashboard></Dashboard>,
 
-    children:[{
-      path:"add",
-      element:<AddProjects></AddProjects>
-    }]
-  }
+    children: [
+      {
+        path: "add",
+        element: <AddProjects></AddProjects>,
+      },
+      {
+        path: "tasks",
+        element: <AllTask></AllTask>,
+      },
+      {
+        path: "projects",
+        element: <Projects></Projects>,
+      },
+    ],
+  },
 ]);
