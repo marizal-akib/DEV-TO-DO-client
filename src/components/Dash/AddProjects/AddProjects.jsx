@@ -1,9 +1,10 @@
 
 
 const AddProjects = () => {
+    
     return (
         <div>
-            Add
+           
         </div>
     );
 };
