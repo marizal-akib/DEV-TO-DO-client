@@ -5,6 +5,9 @@ import Projects from "../components/Pages/Projects/Projects";
 import Login from "../components/Auth/Login";
 import SignUp from "../components/Auth/SignUp";
 
+import AddProjects from "../components/Dash/AddProjects";
+import Dashboard from "../components/Layouts/Dashboard";
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -25,4 +28,13 @@ export const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "dashboard",
+    element:<Dashboard></Dashboard>,
+
+    children:[{
+      path:"add",
+      element:<AddProjects></AddProjects>
+    }]
+  }
 ]);
