@@ -41,14 +41,14 @@ const Navbar = () => {
             {nav}
           </ul>
         </div>
-        <Link to={"/"} className="btn bg-gray-800 text-blue-400 btn-ghost text-xl"><span className="text-yellow-300 font-semibold">DEV</span> TO-DO</Link>
+        <Link to={"/"} className="btn bg-gray-800 text-blue-400 btn-ghost md:text-xl"><span className="text-yellow-300 font-semibold">DEV</span> TO-DO</Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{nav}</ul>
       </div>
       <div className="navbar-end">
-        <Link to={"/login"} className="btn bg-yellow-300 text-blue-400 text-sm">Login</Link>
-        <Link className="btn bg-blue-400 text-white ml-3">Sing-Up</Link>
+        <Link to={"/login"} className="btn rounded-none btn-xs md:btn-md bg-yellow-300 text-blue-400 text-sm">Login</Link>
+        <Link to={"/signUp"} className="btn rounded-none bg-blue-400 btn-xs md:btn-md text-white ml-3">Sign-Up</Link>
       </div>
     </div>
   );
