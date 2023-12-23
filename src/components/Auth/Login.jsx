@@ -1,31 +1,32 @@
 import { Helmet } from "react-helmet-async";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { FcGoogle } from "react-icons/fc";
 import useAuth from "../../Hooks/useAuth";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+
 
 const Login = () => {
   const { createUserWithGoogle, signIn } = useAuth();
-  //   const axiosPublic = useAxiosPublic();
+    const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from?.pathname || "/dashboard";
+
+  const from =  "/dashboard";
 
   const handleGoogleLogin = () => {
     createUserWithGoogle()
       .then((res) => {
         console.log(res.user);
-        // const userInfo = {
-        //   email: res.user?.email,
-        //   name: res.user?.displayName,
+        const userInfo = {
+          email: res.user?.email,
+          name: res.user?.displayName,
 
-        // };
-
-        // axiosPublic
-        //   .post("/users", userInfo)
-        //   .then((res) => console.log(res.data));
+        };
+        axiosPublic
+          .post("/users", userInfo)
+          .then((res) => console.log(res.data));
         toast(`{Welcome }`);
         navigate(from, { replace: true });
       })
@@ -86,7 +87,8 @@ const Login = () => {
                   <span className="label-text">Email</span>
                 </label>
                 <input
-                  type="email"
+                  type="email" 
+                  name="email" 
                   placeholder="email"
                   className="input input-bordered"
                   required
@@ -98,6 +100,7 @@ const Login = () => {
                 </label>
                 <input
                   type="password"
+                  name="password"
                   placeholder="password"
                   className="input input-bordered"
                   required

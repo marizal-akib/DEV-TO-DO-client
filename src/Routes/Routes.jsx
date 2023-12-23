@@ -4,9 +4,13 @@ import Home from "../components/Pages/Home/Home";
 import Login from "../components/Auth/Login";
 import SignUp from "../components/Auth/SignUp";
 import Dashboard from "../components/Layouts/Dashboard";
-import AddProjects from "../components/Dash/AddProjects/AddProjects";
+
 import AllTask from "../components/Dash/AllTask/AllTask";
 import Projects from "../components/Dash/Projects/Projects";
+import PrivateRoutes from "./PrivateRoutes";
+import AddProjects from "../components/Dash/Projects/AddProjects";
+import AddTasks from "../components/Dash/AllTask/AddTasks";
+import TaskUpdate from "../components/Dash/AllTask/TaskUpdate";
 
 export const router = createBrowserRouter([
   {
@@ -14,7 +18,7 @@ export const router = createBrowserRouter([
     element: <Main></Main>,
     children: [
       { path: "/", element: <Home></Home> },
-      
+
       {
         path: "/login",
         element: <Login></Login>,
@@ -23,25 +27,67 @@ export const router = createBrowserRouter([
         path: "/signUp",
         element: <SignUp></SignUp>,
       },
+      
     ],
   },
   {
     path: "dashboard",
-    element: <Dashboard></Dashboard>,
+    element: (
+      <PrivateRoutes>
+        <Dashboard></Dashboard>,
+      </PrivateRoutes>
+    ),
 
     children: [
       {
         path: "add",
-        element: <AddProjects></AddProjects>,
+        element: (
+          <PrivateRoutes>
+            <AddProjects></AddProjects>,
+          </PrivateRoutes>
+        ),
       },
       {
         path: "tasks",
-        element: <AllTask></AllTask>,
+        element: (
+          <PrivateRoutes>
+            <AllTask></AllTask>,
+          </PrivateRoutes>
+        ),
       },
       {
         path: "projects",
-        element: <Projects></Projects>,
+        element: (
+          <PrivateRoutes>
+            <Projects></Projects>,
+          </PrivateRoutes>
+        ),
       },
+      {
+        path: "projects/addProjects",
+        element: (
+          <PrivateRoutes>
+            <AddProjects></AddProjects>,
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "tasks/addTasks",
+        element: (
+          <PrivateRoutes>
+            <AddTasks></AddTasks>,
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "update/:id",
+        element: (
+          <PrivateRoutes>
+            <TaskUpdate></TaskUpdate>,
+          </PrivateRoutes>
+        ),
+      },
+      
     ],
   },
 ]);

@@ -1,7 +1,7 @@
 
 const Use = () => {
   return (
-    <div className="p-4">
+    <div className="p-4 bg-gray-300">
       <h2 className="text-2xl text-center font-bold">Who Benefits from Our Platform?</h2>
       <h2 className="text-xl font-semibold text-yellow-300" >Developers/ <span className="text-blue-400">Programmers</span> 🖥️</h2>
       <p>

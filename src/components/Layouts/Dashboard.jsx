@@ -10,6 +10,7 @@ const Dashboard = () => {
       </Helmet>
       <div className="flex">
       <DashNav></DashNav>
+      
       <Outlet></Outlet>
 
       </div>

@@ -1,13 +1,18 @@
 import { Helmet } from "react-helmet-async";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link
+  , useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { FcGoogle } from "react-icons/fc";
 import useAuth from "../../Hooks/useAuth";
 import { useForm } from "react-hook-form";
-// import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import Swal from "sweetalert2";
+
+const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const SignUp = () => {
-    // const axiosPublic = useAxiosPublic();
+    const axiosPublic = useAxiosPublic();
     const {
         register,
         handleSubmit,
@@ -15,8 +20,8 @@ const SignUp = () => {
         formState: { errors },
       } = useForm();
       const navigate = useNavigate();
-      const location = useLocation();
-      const from = location.state?.from?.pathname || "/dashboard";
+    
+      const from =  "/dashboard";
     
       const { createUser, updateUserProfile, createUserWithGoogle,  } = useAuth();
     
@@ -24,15 +29,15 @@ const SignUp = () => {
         createUserWithGoogle()
           .then((res) => {
             console.log(res.user);
-            // const userInfo = {
-            //   email: res.user?.email,
-            //   name: res.user?.displayName,
+            const userInfo = {
+              email: res.user?.email,
+              name: res.user?.displayName,
               
-            // };
+            };
     
-            // axiosPublic
-            //   .post("/users", userInfo)
-            //   .then((res) => console.log(res.data));
+            axiosPublic
+              .post("/users", userInfo)
+              .then((res) => console.log(res.data));
             navigate(from, { replace: true });
             toast(`{Welcome }`);
           })
