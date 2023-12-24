@@ -1,13 +1,15 @@
 import { MdOutlineAddTask } from "react-icons/md";
 import { Link } from "react-router-dom";
-import useTask from "../../../Hooks/useTask";
+// import useTask from "../../../Hooks/useTask";
 // import { useState } from "react";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import Swal from "sweetalert2";
 import { useQuery } from "react-query";
+import useAuth from "../../../Hooks/useAuth";
 
 const AllTask = () => {
   const axiosPublic = useAxiosPublic();
+  const {user} = useAuth()
   const {
     data: tasks = [],
     isPending: loading,
@@ -15,7 +17,7 @@ const AllTask = () => {
   } = useQuery({
     queryKey: ["tasks"],
     queryFn: async () => {
-      const res = await axiosPublic.get("/task");
+      const res = await axiosPublic.get(`/task/${user?.email}`);
       return res.data;
     },
   });
@@ -24,6 +26,60 @@ const AllTask = () => {
   const toDo = tasks.filter((task) => task.status === "To-Do");
   const doing = tasks.filter((task) => task.status === "Doing");
   const done = tasks.filter((task) => task.status === "Done");
+  const onDone = async (id, data) => {
+    console.log(id, data);
+    const task = tasks.filter((task) => task._id === `${id}`);
+    console.log(task[0].description);
+    const newTask = {
+      deadline: task[0].deadline,
+      description: task[0].description,
+      project: task[0].project,
+      projectName: task[0].projectName,
+      project_description: task[0].project_description,
+      status: data,
+      title: task[0].title,
+      urgency: task[0].urgency,
+    };
+    const res = await axiosPublic.patch(`/tasks/${id}`, newTask);
+    console.log(res.data);
+    if (res.data.modifiedCount >= 1) {
+      refetch();
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: `Well done`,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+  };
+  const onDoing = async (id, status) => {
+    console.log(id, status);
+    const task = tasks.filter((task) => task._id === `${id}`);
+    console.log(task[0].deadline);
+    const newTask = {
+      deadline: task[0].deadline,
+      description: task[0].description,
+      project: task[0].project,
+      projectName: task[0].projectName,
+      project_description: task[0].project_description,
+      status: status,
+      title: task[0].title,
+      urgency: task[0].urgency,
+    };
+    const res = await axiosPublic.patch(`/tasks/${id}`, newTask);
+    console.log(res.data);
+    if (res.data.modifiedCount >= 1) {
+      refetch();
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: `All the best for the task`,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+  };
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -78,7 +134,12 @@ const AllTask = () => {
                 </p>
 
                 <div className="card-actions justify-end">
-                  {" "}
+                  <button
+                    className="btn btn-md bg-transparent border-none btn-square text-xs"
+                    onClick={() => onDoing(`${task._id}`, "Doing")}
+                  >
+                    Doing
+                  </button>{" "}
                   {/* Open the modal using document.getElementById('ID').showModal() method */}
                   <button
                     className="btn btn-md bg-transparent border-none btn-square text-xs"
@@ -101,7 +162,9 @@ const AllTask = () => {
                       <div className="modal-action">
                         <form method="dialog">
                           {/* if there is a button in form, it will close the modal */}
-                          <Link className="btn mr-2" to={`/update/${task._id}`}>Update</Link>
+                          <Link className="btn mr-2" to={`/update/${task._id}`}>
+                            Update
+                          </Link>
                           <button className="btn">Close</button>
                         </form>
                       </div>
@@ -134,7 +197,12 @@ const AllTask = () => {
                 </p>
 
                 <div className="card-actions justify-end">
-                  {" "}
+                  <button
+                    className="btn btn-md bg-transparent border-none btn-square text-xs"
+                    onClick={() => onDone(`${task._id}`, "Done")}
+                  >
+                    Done
+                  </button>{" "}
                   {/* Open the modal using document.getElementById('ID').showModal() method */}
                   <button
                     className="btn btn-md bg-transparent border-none btn-square text-xs"
@@ -157,6 +225,9 @@ const AllTask = () => {
                       <div className="modal-action">
                         <form method="dialog">
                           {/* if there is a button in form, it will close the modal */}
+                          <Link className="btn mr-2" to={`/update/${task._id}`}>
+                            Update
+                          </Link>
                           <button className="btn">Close</button>
                         </form>
                       </div>
@@ -210,9 +281,10 @@ const AllTask = () => {
                       <div className="modal-action">
                         <form method="dialog">
                           {/* if there is a button in form, it will close the modal */}
+                          <Link className="btn mr-2" to={`/update/${task._id}`}>
+                            Update
+                          </Link>
                           <button className="btn">Close</button>
-
-                          <Link className="" to={`/update/${task._id}`}>Update</Link>
                         </form>
                       </div>
                     </div>

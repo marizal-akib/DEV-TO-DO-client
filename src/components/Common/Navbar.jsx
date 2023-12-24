@@ -1,19 +1,21 @@
 import { Link, NavLink } from "react-router-dom";
+import useAuth from "../../Hooks/useAuth";
 
 const Navbar = () => {
+  const { user } = useAuth();
   const nav = (
     <>
       <li className="text-blue-400 font-medium">
-        <NavLink to={'/'}>Home</NavLink>
+        <NavLink to={"/"}>Home</NavLink>
       </li>
       {/* <li className="text-blue-400 font-medium">
         <NavLink to={'/projects'} >Projects</NavLink>
       </li> */}
       <li className="text-blue-400 font-medium">
-        <NavLink to={'/dashboard'}>Dashboard</NavLink>
+        <NavLink to={"/dashboard"}>Dashboard</NavLink>
       </li>
       <li className="text-blue-400 font-medium">
-        <NavLink to={'/about'}>About</NavLink>
+        <NavLink to={"/about"}>About</NavLink>
       </li>
     </>
   );
@@ -44,14 +46,34 @@ const Navbar = () => {
             {nav}
           </ul>
         </div>
-        <Link to={"/"} className="btn bg-gray-800 text-blue-400 btn-ghost md:text-xl"><span className="text-yellow-300 font-semibold">DEV</span> TO-DO</Link>
+        <Link
+          to={"/"}
+          className="btn bg-gray-800 text-blue-400 btn-ghost md:text-xl"
+        >
+          <span className="text-yellow-300 font-semibold">DEV</span> TO-DO
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{nav}</ul>
       </div>
       <div className="navbar-end">
-        <Link to={"/login"} className="btn rounded-none btn-xs md:btn-md bg-yellow-300 text-blue-400 text-sm">Login</Link>
-        <Link to={"/signUp"} className="btn rounded-none bg-blue-400 btn-xs md:btn-md text-white ml-3">Sign-Up</Link>
+        {!user&&
+        (
+          <>
+            <Link
+              to={"/login"}
+              className="btn rounded-none btn-xs md:btn-md bg-yellow-300 text-blue-400 text-sm"
+            >
+              Login
+            </Link>
+            <Link
+              to={"/signUp"}
+              className="btn rounded-none bg-blue-400 btn-xs md:btn-md text-white ml-3"
+            >
+              Sign-Up
+            </Link>
+          </>
+        )}
       </div>
     </div>
   );

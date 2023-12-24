@@ -27,6 +27,16 @@ export const router = createBrowserRouter([
         path: "/signUp",
         element: <SignUp></SignUp>,
       },
+      {
+        path: "/update/:id",
+        element: (
+          <PrivateRoutes>
+            <TaskUpdate></TaskUpdate>,
+          </PrivateRoutes>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/tasks/${params.id}`),
+      },
       
     ],
   },
@@ -79,14 +89,14 @@ export const router = createBrowserRouter([
           </PrivateRoutes>
         ),
       },
-      {
-        path: "update/:id",
-        element: (
-          <PrivateRoutes>
-            <TaskUpdate></TaskUpdate>,
-          </PrivateRoutes>
-        ),
-      },
+      // {
+      //   path: "update/:id",
+      //   element: (
+      //     <PrivateRoutes>
+      //       <TaskUpdate></TaskUpdate>,
+      //     </PrivateRoutes>
+      //   ),
+      // },
       
     ],
   },

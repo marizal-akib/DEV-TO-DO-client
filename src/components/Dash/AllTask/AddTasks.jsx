@@ -2,15 +2,18 @@ import Swal from "sweetalert2";
 import { useForm } from "react-hook-form";
 
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import useAuth from "../../../Hooks/useAuth";
 
 // import { FaUtensils } from "react-icons/fa";
 
 const AddTasks = () => {
   const { register, handleSubmit, reset } = useForm();
   const axiosPublic = useAxiosPublic();
+  const {user} = useAuth();
   const onSubmit = async (data) => {
     console.log(data);
     const newTask = {
+      email: user.email,
       deadline: data.deadline,
       description: data.description,
       project: data.project,
